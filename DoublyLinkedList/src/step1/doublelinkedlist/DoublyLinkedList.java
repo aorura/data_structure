@@ -1,7 +1,30 @@
 package step1.doublelinkedlist;
 
-public class DoublyLinkedList<T> extends CommonList implements IList<T>{
+import simplelinkedlist.SimpleLinkedList.DataNode;
 
+public class DoublyLinkedList<T> extends CommonList implements IList<T> {
+	private class DataNode {
+		DataNode next, prev;
+		T data;
+		
+		public DataNode(DataNode prev, T data, DataNode next) {
+			this.next = next;
+			this.data = data;
+			this.prev = prev;
+		}
+	}
+
+	DataNode head = null;
+	
+	private DataNode getNode(int index) {
+		DataNode foundNode = head;
+		
+		for (int i=0; i < index; ++i) {
+			foundNode = foundNode.next;
+		}
+		return foundNode;
+	}
+	
 	@Override
 	public void add(T element) {
 		// TODO Auto-generated method stub
