@@ -1,4 +1,4 @@
-package step1.doublelinkedlist;
+package step1.doublelinkedlistwithtail;
 
 public class CommonList {
 	protected int size = 0;

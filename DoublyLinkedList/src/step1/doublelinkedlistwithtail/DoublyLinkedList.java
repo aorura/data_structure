@@ -1,4 +1,4 @@
-package step1.doublelinkedlist;
+package step1.doublelinkedlistwithtail;
 
 public class DoublyLinkedList<T> extends CommonList implements IList<T> {
 	private class DataNode {
@@ -13,13 +13,32 @@ public class DoublyLinkedList<T> extends CommonList implements IList<T> {
 	}
 
 	DataNode head = null;
+	DataNode tail = null;
 	
+//	private DataNode getNode(int index) {
+//		DataNode foundNode = head;
+//		
+//		for (int i=0; i < index; ++i) {
+//			foundNode = foundNode.next;
+//		}
+//		return foundNode;
+//	}
 	private DataNode getNode(int index) {
-		DataNode foundNode = head;
-		
-		for (int i=0; i < index; ++i) {
-			foundNode = foundNode.next;
+		DataNode foundNode = null;
+		if (index > size/2) {
+			foundNode = tail;
+			
+			for (int i=1; i < size - index; ++i) {
+				foundNode = foundNode.prev;
+			}
+		} else {
+			foundNode = head;
+			
+			for (int i=0; i < index; ++i) {
+				foundNode = foundNode.next;
+			}
 		}
+
 		return foundNode;
 	}
 	
@@ -29,10 +48,11 @@ public class DoublyLinkedList<T> extends CommonList implements IList<T> {
 		if (head == null) {
 			DataNode newNode = new DataNode(null, element, null);
 			head = newNode;
+			tail = newNode;
 		} else {
-			DataNode lastNode = getNode(size - 1);
-			DataNode newNode = new DataNode(lastNode, element, null);
-			lastNode.next = newNode;
+			DataNode newNode = new DataNode(tail, element, null);
+			tail.next = newNode;
+			tail = newNode;
 		}
 		++size;
 	}
@@ -70,8 +90,13 @@ public class DoublyLinkedList<T> extends CommonList implements IList<T> {
 		if (index == 0) {
 			head = targetNode.next;
 			head.prev = null;
+			
+			if (head == null) {
+				tail = head;
+			}
 		} else if (index == size - 1) {
 			targetNode.prev.next = null;
+			tail = targetNode.prev;
 		}else {
 			targetNode.prev.next = targetNode.next;
 			targetNode.next.prev = targetNode.prev;
