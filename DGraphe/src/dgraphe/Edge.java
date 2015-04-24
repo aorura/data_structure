@@ -2,14 +2,14 @@ package dgraphe;
 
 public class Edge<V, E> {
 
-	private V start;
-	private V end;
-	private V weight;
+	public V start;
+	public V end;
+	public E weight;
 
 	public Edge(V start, V end, E weight) {
 		this.start = start;
 		this.end = end;
-		this.weight = end;
+		this.weight = weight;
 	}
 
 	@Override
